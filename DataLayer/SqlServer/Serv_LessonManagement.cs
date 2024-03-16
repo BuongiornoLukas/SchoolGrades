@@ -9,6 +9,43 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal override  void CreateTableLesson()
+        {
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    // Tabella: SchoolYears
+                    cmd.CommandText = @"CREATE TABLE Lessons 
+                    (idLesson INT(45) NOT NULL,
+                    Date DATETIME(45),
+                    IdClass INT(45),
+                    IdSchoolSubject VARCHAR(45),
+                    IdSchoolYear VARCHAR(45),
+                    Note VARCHAR(45),
+                    PRIMARY KEY(idLesson));";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        //internal void DeleteTableLessons( string Table)
+        //{
+        //    string createQuery = "DROP TABLE " + Table + ";";
+        //    using (DbConnection conn = Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = createQuery;
+
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //}
+
         internal override Lesson GetLessonFromRow(DbDataReader dRead)
         {
             Lesson l = new Lesson();
